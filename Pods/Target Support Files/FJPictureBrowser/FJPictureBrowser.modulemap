@@ -1,0 +1,6 @@
+framework module FJPictureBrowser {
+  umbrella header "FJPictureBrowser-umbrella.h"
+
+  export *
+  module * { export * }
+}

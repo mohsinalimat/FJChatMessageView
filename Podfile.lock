@@ -1,0 +1,25 @@
+PODS:
+  - FJPictureBrowser (1.0.3):
+    - SDWebImage (~> 4.1.0)
+  - Masonry (1.1.0)
+  - SDWebImage (4.1.2):
+    - SDWebImage/Core (= 4.1.2)
+  - SDWebImage/Core (4.1.2)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
+
+DEPENDENCIES:
+  - FJPictureBrowser
+  - Masonry
+  - YYKit (~> 1.0.9)
+
+SPEC CHECKSUMS:
+  FJPictureBrowser: aed5a3789cefd182b983e83ebc31730bc73e51c1
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  SDWebImage: cb6f9f266a9977741efcbc21e618e8be3734c774
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+
+PODFILE CHECKSUM: eef94420debfefc4032a3de485083de9c0da29c7
+
+COCOAPODS: 1.1.1
