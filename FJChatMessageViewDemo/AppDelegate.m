@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "FJTestViewController.h"
 #import "FJChatMessageViewController.h"
 
 @interface AppDelegate ()
@@ -17,7 +18,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[FJChatMessageViewController alloc] init]];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[FJTestViewController alloc] init]];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];

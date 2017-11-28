@@ -45,7 +45,8 @@
 @implementation FJChatMessageViewController
 
 
-#pragma mark --- init method
+#pragma mark --------------- Init Methods
+
 - (instancetype)initWithChatSessionType:(FJChatMessageSessionType)chatSessionType {
     if (self = [super init]) {
         _chatSessionType = chatSessionType;
@@ -53,6 +54,12 @@
     return self;
 }
 #pragma mark --- life circle
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _chatSessionType = FJChatMessageSessionTypeGroup;
@@ -61,10 +68,87 @@
     [self setupNetworkRequest];
     [self addKeyboardNotiObserver];
     [self layoutViewControllerSubviews];
+    
+    __weak typeof(self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.tableView reloadData];
+    });
 }
 
 
-#pragma mark --- private method
+
+
+#pragma mark --- custom delegate
+// 表情 / 键盘 切换
+- (void)chatToolView:(FJChatToolView *)chatToolView showType:(FJChatToolBarShowingView)showType {
+    // 表情
+    if (showType == FJChatToolBarShowingFaceView) {
+        self.chatEmojiView.showChatEmojiView = YES;
+        self.chatToolView.textView.inputView = self.chatEmojiView;
+        self.chatToolView.textView.extraAccessoryViewHeight = [FJChatEmojiView getChatEmojiViewHeight];
+        [self.chatToolView.textView reloadInputViews];
+        [self.chatToolView.textView becomeFirstResponder];
+    }
+    // 键盘
+    else if(showType == FJChatToolBarShowingKeyboard){
+        self.chatToolView.textView.inputView = nil;
+        self.chatEmojiView.showChatEmojiView = NO;
+        [self.chatToolView.textView reloadInputViews];
+        [self.chatToolView.textView becomeFirstResponder];
+    }
+    // 点击 空白 区域
+    else if (showType == FJChatToolBarShowingNoneView) {
+        self.chatEmojiView.showChatEmojiView = NO;
+        self.chatToolView.textView.inputView = nil;
+        [self.chatToolView.textView endEditing:YES];
+        [self.chatToolView.textView resignFirstResponder];
+    }
+}
+
+// 点击 发送 按键
+- (void)chatToolView:(FJChatToolView *)chatToolView sendText:(NSString *)sendText {
+    [self sendChatMessage:sendText];
+}
+
+
+- (void)chatToolView:(FJChatToolView *)chatToolView textLocation:(NSInteger)textLocation {
+    
+    [[FJEmojiHelper sharedInstance] updateSelectLocationWithTextLocation:textLocation];
+}
+
+
+
+#pragma mark --- noti method
+
+// 处理键盘frame改变通知
+- (void)handleKeyboard:(NSNotification *)aNotification {
+    
+    CGRect keyboardFrame = [aNotification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    [self.chatToolView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(-([UIScreen mainScreen].bounds.size.height - keyboardFrame.origin.y));
+    }];
+    
+    [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(-([UIScreen mainScreen].bounds.size.height - keyboardFrame.origin.y));
+    }];
+    /** 增加监听键盘大小变化通知,并且让tableView 滚动到最底部 */
+    [self.view layoutIfNeeded];
+    [self scrollBottom:NO];
+}
+
+#pragma mark --------------- Response Event
+
+- (void)handleTapAction:(UITapGestureRecognizer *)tap {
+    
+    [self.view endEditing:YES];
+    [self chatToolView:self.chatToolView showType:FJChatToolBarShowingNoneView];
+    
+}
+
+
+#pragma mark --------------- Private Methods
 // 设置 子控件
 - (void)setupViewControls {
     self.navigationItem.title = @"林大鹏";
@@ -136,73 +220,6 @@
     }
 }
 
-#pragma mark --- custom delegate
-// 表情 / 键盘 切换
-- (void)chatToolView:(FJChatToolView *)chatToolView showType:(FJChatToolBarShowingView)showType {
-    // 表情
-    if (showType == FJChatToolBarShowingFaceView) {
-        self.chatEmojiView.showChatEmojiView = YES;
-        self.chatToolView.textView.inputView = self.chatEmojiView;
-        self.chatToolView.textView.extraAccessoryViewHeight = [FJChatEmojiView getChatEmojiViewHeight];
-        [self.chatToolView.textView reloadInputViews];
-        [self.chatToolView.textView becomeFirstResponder];
-    }
-    // 键盘
-    else if(showType == FJChatToolBarShowingKeyboard){
-        self.chatToolView.textView.inputView = nil;
-        self.chatEmojiView.showChatEmojiView = NO;
-        [self.chatToolView.textView reloadInputViews];
-        [self.chatToolView.textView becomeFirstResponder];
-    }
-    // 点击 空白 区域
-    else if (showType == FJChatToolBarShowingNoneView) {
-        self.chatEmojiView.showChatEmojiView = NO;
-        self.chatToolView.textView.inputView = nil;
-        [self.chatToolView.textView endEditing:YES];
-        [self.chatToolView.textView resignFirstResponder];
-    }
-}
-
-// 点击 发送 按键
-- (void)chatToolView:(FJChatToolView *)chatToolView sendText:(NSString *)sendText {
-    [self sendChatMessage:sendText];
-}
-
-
-- (void)chatToolView:(FJChatToolView *)chatToolView textLocation:(NSInteger)textLocation {
-    
-    [[FJEmojiHelper sharedInstance] updateSelectLocationWithTextLocation:textLocation];
-}
-
-
-
-#pragma mark --- noti method
-
-// 处理键盘frame改变通知
-- (void)handleKeyboard:(NSNotification *)aNotification {
-    
-    CGRect keyboardFrame = [aNotification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    [self.chatToolView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(-([UIScreen mainScreen].bounds.size.height - keyboardFrame.origin.y));
-    }];
-    
-    [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(-([UIScreen mainScreen].bounds.size.height - keyboardFrame.origin.y));
-    }];
-    /** 增加监听键盘大小变化通知,并且让tableView 滚动到最底部 */
-    [self.view layoutIfNeeded];
-    [self scrollBottom:NO];
-}
-
-#pragma mark --------------- Response Event
-
-- (void)handleTapAction:(UITapGestureRecognizer *)tap {
-    
-    [self.view endEditing:YES];
-    [self chatToolView:self.chatToolView showType:FJChatToolBarShowingNoneView];
-    
-}
 
 #pragma mark --------------- Getter / Setter
 // 聊天 框
@@ -291,9 +308,5 @@
     return _chatMessageViewModel;
 }
 
-#pragma mark --- dealloc method
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 @end
