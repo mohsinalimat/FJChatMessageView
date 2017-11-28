@@ -6,6 +6,7 @@
 //  Copyright © 2017年 fjf. All rights reserved.
 //
 
+#import "FJEmojiHelper.h"
 #import "FJChatMessageModel.h"
 
 @implementation FJChatMessageModel
@@ -25,7 +26,6 @@
                           owner:(FJChatMessageOwner)aOwner
                            time:(NSTimeInterval)aTime {
     if (self = [super init]) {
-        
         _content = aContent;
         _state = aState;
         _owner = aOwner;

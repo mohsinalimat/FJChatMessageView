@@ -101,4 +101,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
 }
+
+#pragma mark --- ScrollViewDelegate Methods
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    
+    if(self.scrollBlock) {
+        self.scrollBlock(scrollView);
+    }
+}
 @end

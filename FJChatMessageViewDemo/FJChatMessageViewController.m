@@ -106,7 +106,6 @@
 }
 
 
-
 // 添加 键盘 通知 监听
 - (void)addKeyboardNotiObserver {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboard:) name:UIKeyboardWillChangeFrameNotification object:nil];
@@ -114,6 +113,8 @@
 
 // 发送 聊天 信息
 - (void)sendChatMessage:(NSString *)chatMessage {
+    chatMessage = [chatMessage stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    chatMessage = [[FJEmojiHelper sharedInstance] indexStrFromEmoji:chatMessage];
     FJChatMessageModel *chatMessageModel = [[FJChatMessageModel alloc] initWithContent:chatMessage state:FJChatMessageStateSending owner:FJChatMessageOwnerSelf];
     [self.chatMessageViewModel sendMessage:chatMessageModel];
     [self.chatToolView clearTextView];
@@ -128,12 +129,19 @@
     }
 }
 
+// 处理 相关 view
+- (void)handleChatToolInfoViewWhenScroll {
+    if ([self.chatToolView isShowFootView] || self.chatEmojiView.isShowChatEmojiView) {
+        [self handleTapAction:nil];
+    }
+}
 
 #pragma mark --- custom delegate
 // 表情 / 键盘 切换
 - (void)chatToolView:(FJChatToolView *)chatToolView showType:(FJChatToolBarShowingView)showType {
     // 表情
     if (showType == FJChatToolBarShowingFaceView) {
+        self.chatEmojiView.showChatEmojiView = YES;
         self.chatToolView.textView.inputView = self.chatEmojiView;
         self.chatToolView.textView.extraAccessoryViewHeight = [FJChatEmojiView getChatEmojiViewHeight];
         [self.chatToolView.textView reloadInputViews];
@@ -142,11 +150,13 @@
     // 键盘
     else if(showType == FJChatToolBarShowingKeyboard){
         self.chatToolView.textView.inputView = nil;
+        self.chatEmojiView.showChatEmojiView = NO;
         [self.chatToolView.textView reloadInputViews];
         [self.chatToolView.textView becomeFirstResponder];
     }
     // 点击 空白 区域
     else if (showType == FJChatToolBarShowingNoneView) {
+        self.chatEmojiView.showChatEmojiView = NO;
         self.chatToolView.textView.inputView = nil;
         [self.chatToolView.textView endEditing:YES];
         [self.chatToolView.textView resignFirstResponder];
@@ -163,6 +173,7 @@
     
     [[FJEmojiHelper sharedInstance] updateSelectLocationWithTextLocation:textLocation];
 }
+
 
 
 #pragma mark --- noti method
@@ -184,7 +195,7 @@
     [self scrollBottom:NO];
 }
 
-#pragma mark --- response event
+#pragma mark --------------- Response Event
 
 - (void)handleTapAction:(UITapGestureRecognizer *)tap {
     
@@ -192,7 +203,8 @@
     [self chatToolView:self.chatToolView showType:FJChatToolBarShowingNoneView];
     
 }
-#pragma mark --- getter method
+
+#pragma mark --------------- Getter / Setter
 // 聊天 框
 - (FJChatToolView *)chatToolView {
     if (!_chatToolView) {
@@ -270,6 +282,11 @@
 - (FJChatMessageViewModel *)chatMessageViewModel {
     if (!_chatMessageViewModel) {
         _chatMessageViewModel = [[FJChatMessageViewModel alloc] initWithChatSessionType:_chatSessionType];
+        
+        __weak typeof(self) weakSelf = self;
+        _chatMessageViewModel.scrollBlock = ^(UIScrollView * _Nullable scrollView) {
+            [weakSelf handleChatToolInfoViewWhenScroll];
+        };
     }
     return _chatMessageViewModel;
 }

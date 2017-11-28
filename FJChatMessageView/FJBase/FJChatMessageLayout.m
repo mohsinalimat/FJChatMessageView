@@ -6,6 +6,7 @@
 //  Copyright © 2017年 fjf. All rights reserved.
 //
 
+#import "FJEmojiHelper.h"
 #import "NSString+Extention.h"
 #import "FJChatMessageModel.h"
 #import "FJChatMessageLayout.h"
@@ -51,6 +52,8 @@
     CGFloat contentTextViewHeight = 0;
     CGFloat contentTextViewTop = 0;
     CGFloat contentTextViewX = 0;
+    
+    _messageModel.content = [[FJEmojiHelper sharedInstance] emojiFromIndexStr:_messageModel.content];
     // 系统 消息
     if (_messageModel.owner == FJChatMessageOwnerSystem) {
         if (_messageModel.content) {

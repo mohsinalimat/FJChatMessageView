@@ -187,6 +187,7 @@ shouldChangeTextInRange:(NSRange)range
             [self.delegate chatToolView:self sendText:self.textView.text];
         }
         self.sendText = YES;
+        return NO;
     }
     return YES;
 }
@@ -221,6 +222,10 @@ shouldChangeTextInRange:(NSRange)range
 
 #pragma mark --- getter method
 
+// 是否 显示 footView
+- (BOOL)isShowFootView {
+    return _showFootView;
+}
 // 分割线
 - (UIView *)lineView {
     if (_lineView == nil) {

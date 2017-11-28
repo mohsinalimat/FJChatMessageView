@@ -13,7 +13,6 @@ typedef void(^FJChatEmojiBtnClickedBlock)(UIButton *btn, NSInteger btnTag);
 @class PageControl;
 
 @interface FJChatEmojiView : UIView
-
 // 发送 按键
 @property (nonatomic, strong) UIButton *sendBtn;
 // 分割线
@@ -28,6 +27,8 @@ typedef void(^FJChatEmojiBtnClickedBlock)(UIButton *btn, NSInteger btnTag);
 @property (nonatomic, copy) FJChatEmojiBtnClickedBlock emojiBtnBlock;
 // 发送
 @property (nonatomic, copy) FJChatEmojiBtnClickedBlock sendBtnBlock;
+// 是否 显示 表情 界面
+@property (nonatomic, assign, getter=isShowChatEmojiView) BOOL showChatEmojiView;
 // 获取 高度
 + (CGFloat)getChatEmojiViewHeight;
 @end

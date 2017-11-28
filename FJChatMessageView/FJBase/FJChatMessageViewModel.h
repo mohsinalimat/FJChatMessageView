@@ -16,18 +16,20 @@
 
 typedef void(^FJChatMessageViewModelCompletionBlock) (BOOL isSuccess);
 
-@interface FJChatMessageViewModel : NSObject<UITableViewDataSource,UITableViewDelegate>
+typedef void(^FJChatMessageViewModelScrollBlock) (UIScrollView * _Nullable scrollView);
 
-/**
- *  主视图
- */
-@property (weak, nonatomic, nullable)   FJChatMessageViewController *chatMessageController;
+
+@interface FJChatMessageViewModel : NSObject<UITableViewDataSource,UITableViewDelegate>
 
 /**
  *  会话类型
  */
 @property (nonatomic, assign, readonly) FJChatMessageSessionType chatSessionType;
 
+/**
+ *  scrollView 滚动 block
+ */
+@property (nonatomic, copy) FJChatMessageViewModelScrollBlock scrollBlock;
 
 /**
  *  存储所有信息的数组
@@ -40,7 +42,7 @@ typedef void(^FJChatMessageViewModelCompletionBlock) (BOOL isSuccess);
  *
  *  @param aMessage 需要发送的消息
  */
-- (void)sendMessage:(FJChatMessageModel *)aMessage;
+- (void)sendMessage:(FJChatMessageModel *_Nullable)aMessage;
 
 /**
  *  初始化方法

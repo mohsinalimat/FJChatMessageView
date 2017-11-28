@@ -41,6 +41,9 @@
 // 委托
 @property (nonatomic, weak) id<FJChatToolViewDelegate> delegate;
 
+// 是否 显示 footView
+- (BOOL)isShowFootView;
+
 // 清空 数据
 - (void)clearTextView;
 
