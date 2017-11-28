@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-UIKIT_EXTERN const CGFloat kFJChatEmojiViewHeight;
-
 typedef void(^FJChatEmojiBtnClickedBlock)(UIButton *btn, NSInteger btnTag);
 
 @class PageControl;
@@ -30,5 +28,6 @@ typedef void(^FJChatEmojiBtnClickedBlock)(UIButton *btn, NSInteger btnTag);
 @property (nonatomic, copy) FJChatEmojiBtnClickedBlock emojiBtnBlock;
 // 发送
 @property (nonatomic, copy) FJChatEmojiBtnClickedBlock sendBtnBlock;
-
+// 获取 高度
++ (CGFloat)getChatEmojiViewHeight;
 @end

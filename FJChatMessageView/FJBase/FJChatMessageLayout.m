@@ -90,10 +90,8 @@
             contentTextViewX = kChatMessageCellOwerAvatarX - contentTextViewWidth - kChatMessageCellNameLblToAvatar;
             
             _contentTextViewFrame = CGRectMake(contentTextViewX, contentTextViewTop, contentTextViewWidth, contentTextViewHeight);
-            CGFloat contentTextLblWidth = contentTextViewWidth - 2 * kChatMessageCellContentTextHorizontalPadding;
-            CGFloat contentTextLblHeight = contentTextViewHeight - 2 * kChatMessageCellContentTextVerticalPadding;
             
-            _contentTextLblFrame = CGRectMake(contentTextViewX + kChatMessageCellContentTextHorizontalPadding, contentTextViewTop + kChatMessageCellContentTextVerticalPadding, contentTextLblWidth, contentTextLblHeight);
+            _messageStateViewFrame = CGRectMake(contentTextViewX -  kChatMessageCellStateViewToContentView - kChatMessageCellStateViewSize, contentTextViewTop + (contentTextViewHeight / 2.0f) - kChatMessageCellStateViewSize/2.0, kChatMessageCellStateViewSize, kChatMessageCellStateViewSize);
             _marginBottom = kChatMessageCellBottomMargin;
         }
     }
@@ -150,11 +148,8 @@
         contentTextViewX = kChatMessageCellContentX;
         
         _contentTextViewFrame = CGRectMake(contentTextViewX, contentTextViewTop, contentTextViewWidth, contentTextViewHeight);
-        CGFloat contentTextLblWidth = contentTextViewWidth - 2 * kChatMessageCellContentTextHorizontalPadding;
-        CGFloat contentTextLblHeight = contentTextViewHeight - 2 * kChatMessageCellContentTextVerticalPadding;
-        
-        _contentTextLblFrame = CGRectMake(contentTextViewX + kChatMessageCellContentTextHorizontalPadding, contentTextViewTop + kChatMessageCellContentTextVerticalPadding, contentTextLblWidth, contentTextLblHeight);
-        
+    
+        _messageStateViewFrame = CGRectMake(CGRectGetMaxX(_contentTextViewFrame) + kChatMessageCellStateViewToContentView, contentTextViewTop + (contentTextViewHeight / 2.0f) - kChatMessageCellStateViewSize/2.0, kChatMessageCellStateViewSize, kChatMessageCellStateViewSize);
         _marginBottom = kChatMessageCellBottomMargin;
     }
 }

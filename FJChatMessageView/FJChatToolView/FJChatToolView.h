@@ -10,8 +10,6 @@
 #import <UIKit/UIKit.h>
 #import "FJChatMessageViewHeader.h"
 
-// 高度
-UIKIT_EXTERN const CGFloat kChatToolViewHeight;
 
 @class FJChatToolView;
 
@@ -45,4 +43,7 @@ UIKIT_EXTERN const CGFloat kChatToolViewHeight;
 
 // 清空 数据
 - (void)clearTextView;
+
+// 获取 聊天 高度
++ (CGFloat)getChatToolViewHeight ;
 @end

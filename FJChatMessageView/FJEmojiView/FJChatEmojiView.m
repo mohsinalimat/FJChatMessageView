@@ -11,7 +11,7 @@
 #import "FJChatMessageViewHeader.h"
 
 // 高度
-const CGFloat kFJChatEmojiViewHeight = 240.0f;
+static const CGFloat kFJChatEmojiViewHeight = 240.0f;
 // 行
 static const CGFloat kFJChatEmojiViewRow = 4;
 // 列
@@ -26,25 +26,32 @@ static const CGFloat kFJChatEmojiViewPage = 2;
 
 @implementation FJChatEmojiView
 
-#pragma mark --- init method
+#pragma mark --------------- Init Methods
+
 - (instancetype)init {
     if (self = [super init]) {
-        [self setupFJChatEmojiViewControls];
-        [self layoutFJChatEmojiViewSubViews];
+        [self setupChatEmojiViewControls];
+        [self layoutChatEmojiViewSubViews];
     }
     return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        [self setupFJChatEmojiViewControls];
-        [self layoutFJChatEmojiViewSubViews];
+        [self setupChatEmojiViewControls];
+        [self layoutChatEmojiViewSubViews];
     }
     return self;
 }
 
-#pragma mark --- private method
-- (void)setupFJChatEmojiViewControls {
+#pragma mark --------------- Public Methods
+
++ (CGFloat)getChatEmojiViewHeight {
+    return kFJChatEmojiViewHeight + FJ_TABBAR_SAFE_BOTTOM_MARGIN;
+}
+
+#pragma mark --------------- Private Methods
+- (void)setupChatEmojiViewControls {
     
     [self addSubview:self.emotionView];
     [self addSubview:self.pageControl];
@@ -53,10 +60,12 @@ static const CGFloat kFJChatEmojiViewPage = 2;
     self.backgroundColor = [UIColor colorWithCustomType:AppColorTypeFontA];
 }
 
-- (void)layoutFJChatEmojiViewSubViews {
+- (void)layoutChatEmojiViewSubViews {
+    
+    CGFloat bottomMargin = 64.0f + FJ_TABBAR_SAFE_BOTTOM_MARGIN;
     [self.emotionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self);
-        make.bottom.equalTo(self).mas_offset(-64.0f);
+        make.bottom.equalTo(self).mas_offset(-bottomMargin);
     }];
     
     [self.pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -68,7 +77,7 @@ static const CGFloat kFJChatEmojiViewPage = 2;
     [self.sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
         make.height.mas_equalTo(44.0f);
-        make.bottom.mas_equalTo(self);
+        make.top.mas_equalTo(self.pageControl.mas_bottom);
     }];
     
     [self.separatorLineView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -78,7 +87,7 @@ static const CGFloat kFJChatEmojiViewPage = 2;
 }
 
 
-#pragma mark --- sysetem delegate
+#pragma mark --------------- System Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)ascrollView{
     NSInteger page = floor((ascrollView.contentOffset.x+ascrollView.frame.size.width/2)/ascrollView.frame.size.width);
@@ -86,7 +95,7 @@ static const CGFloat kFJChatEmojiViewPage = 2;
 }
 
 
-#pragma mark --- response event
+#pragma mark --------------- Response Event
 // 删除
 - (void)deleFaceClicked:(UIButton *)sender {
     if (self.deleteBtnBlock) {
@@ -108,7 +117,7 @@ static const CGFloat kFJChatEmojiViewPage = 2;
     }
 }
 
-#pragma mark --- getter method
+#pragma mark --------------- Getter / Setter
 
 // 表情
 - (UIScrollView *)emotionView {

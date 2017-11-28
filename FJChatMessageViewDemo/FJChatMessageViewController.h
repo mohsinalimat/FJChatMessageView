@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FJChatMessageConfiguration.h"
 
 @interface FJChatMessageViewController : UIViewController
-// tableView
-@property (nonatomic, strong) UITableView *tableView;
 
+- (_Nullable instancetype)initWithChatSessionType:(FJChatMessageSessionType)chatSessionType;
 @end

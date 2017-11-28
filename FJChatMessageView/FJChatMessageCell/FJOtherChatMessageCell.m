@@ -20,6 +20,7 @@ NSString *const kFJOtherChatMessageCellId = @"FJOtherChatMessageCellId";
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setupCellControls];
+        [self layoutOtherChateMessageCellControls];
     }
     return self;
 }
@@ -41,13 +42,17 @@ NSString *const kFJOtherChatMessageCellId = @"FJOtherChatMessageCellId";
 #pragma mark --- private method
 // 设置 控件
 - (void)setupCellControls {
-    [self addSubview:self.backgroundImgView];
-    [self addSubview:self.avatarImgView];
     [self addSubview:self.nickNameLbl];
-    [self addSubview:self.contentLbl];
+    UIImage *backgroundImg = [UIImage imageNamed:@"bg_liaotianqipao_hui.png"];
+    UIImage *stretchImg = [backgroundImg stretchableImageWithLeftCapWidth:backgroundImg.size.width * 0.5 topCapHeight:backgroundImg.size.height * 0.5];
+    self.backgroundImgView.image = stretchImg;
     self.backgroundColor = [UIColor clearColor];
 }
 
+// 布局 控件
+- (void)layoutOtherChateMessageCellControls {
+    self.avatarImgView.frame = CGRectMake(kChatMessageCellPadding, 0, kChatMessageCellAvatarSize, kChatMessageCellAvatarSize);
+}
 
 #pragma mark --- getter method
 // 昵称
@@ -67,45 +72,4 @@ NSString *const kFJOtherChatMessageCellId = @"FJOtherChatMessageCellId";
     }
     return _nickNameLbl;
 }
-
-// 头像
-- (UIImageView *)avatarImgView {
-    if(!_avatarImgView){
-        _avatarImgView = [UIImageView new];
-        _avatarImgView.size = CGSizeMake(kChatMessageCellAvatarSize, kChatMessageCellAvatarSize);
-        _avatarImgView.origin = CGPointMake(kChatMessageCellPadding, 0);
-        _avatarImgView.contentMode = UIViewContentModeScaleAspectFill;
-        [_avatarImgView zy_cornerRadiusRoundingRect];
-    }
-    return _avatarImgView;
-}
-
-// 文本
-- (YYLabel *)contentLbl {
-    if (!_contentLbl) {
-        _contentLbl = [[YYLabel alloc] init];
-        _contentLbl.width = kChatMessageCellContentWidth;
-        _contentLbl.left = kChatMessageCellContentX;
-        _contentLbl.displaysAsynchronously = YES;
-        _contentLbl.ignoreCommonProperties = YES;
-        _contentLbl.fadeOnAsynchronouslyDisplay = NO;
-        _contentLbl.fadeOnHighlight = NO;
-        _contentLbl.lineBreakMode = NSLineBreakByClipping;
-        _contentLbl.textVerticalAlignment = YYTextVerticalAlignmentCenter;
-    }
-    return _contentLbl;
-}
-
-// 背景图
-- (UIImageView *)backgroundImgView {
-    if(!_backgroundImgView){
-        _backgroundImgView = [UIImageView new];
-        UIImage *backgroundImg = [UIImage imageNamed:@"bg_liaotianqipao_hui.png"];
-        UIImage *stretchImg = [backgroundImg stretchableImageWithLeftCapWidth:backgroundImg.size.width * 0.5 topCapHeight:backgroundImg.size.height * 0.5];
-         [_backgroundImgView setImage:stretchImg];
-    }
-    return _backgroundImgView;
-}
-
-
 @end

@@ -29,8 +29,8 @@
 
 
 
-// 文本 frame
-@property (nonatomic, assign) CGRect contentTextLblFrame;
+// 消息 状态 frame
+@property (nonatomic, assign) CGRect messageStateViewFrame;
 // 文本 view frame
 @property (nonatomic, assign) CGRect contentTextViewFrame;
 //文本 layout

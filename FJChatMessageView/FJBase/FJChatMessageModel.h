@@ -6,7 +6,7 @@
 //  Copyright © 2017年 fjf. All rights reserved.
 //
 
-#import "FJChatMessageViewHeader.h"
+#import "FJChatMessageConfiguration.h"
 #import <Foundation/Foundation.h>
 
 @interface FJChatMessageModel : NSObject
@@ -38,4 +38,33 @@
 @property (nonatomic, copy)   NSString *session_id;
 /** 消息会话的样式 只读 */
 @property (nonatomic, assign) FJChatMessageSessionType chatMessageSessionType;
+
+/**
+ *  实例化FJChatMessageModel实例
+ *
+ *  使用此方法初始化 会将time属性 -> 自动设置为当前时间的时间戳
+ *  @param aContent 消息内容
+ *  @param aState   消息状态
+ *  @param aOwner   消息发送者
+ *
+ *  @return 实例
+ */
+- (instancetype)initWithContent:(id)aContent
+                          state:(FJChatMessageState)aState
+                          owner:(FJChatMessageOwner)aOwner;
+
+/**
+ *  实例化FJChatMessageModel实例
+ *
+ *  @param aContent 消息内容
+ *  @param aState   消息状态
+ *  @param aOwner   消息发送者
+ *  @param aTime    消息时间
+ *
+ *  @return 实例
+ */
+- (instancetype)initWithContent:(id)aContent
+                          state:(FJChatMessageState)aState
+                          owner:(FJChatMessageOwner)aOwner
+                           time:(NSTimeInterval)aTime;
 @end

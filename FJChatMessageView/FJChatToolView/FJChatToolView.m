@@ -12,12 +12,15 @@
 
 
 // 高度
-const CGFloat kChatToolViewHeight = 50.0f;
+static const CGFloat kChatToolViewHeight = 50.0f;
 
 static NSInteger const kChatMessageMaxLimit = 140;
 
 @interface FJChatToolView()<YYTextViewDelegate>
-
+// 显示 聊天 view
+@property (nonatomic, getter=isShowFootView, assign) BOOL showFootView;
+// 当前 高度
+@property (nonatomic, assign) CGFloat currentChatFootViewHeight;
 @end
 
 @implementation FJChatToolView
@@ -26,10 +29,23 @@ static NSInteger const kChatMessageMaxLimit = 140;
 
 - (instancetype)init {
     if (self = [super init]) {
+        [self addKeyboardNotiObserver];
         [self setupChatToolViewControls];
         [self layoutChatToolViewSubViews];
     }
     return self;
+}
+
+
+#pragma mark --- public method
+// 清空 数据
+- (void)clearTextView {
+    self.textView.text = @"";
+}
+
+// 获取 聊天 高度
++ (CGFloat)getChatToolViewHeight {
+    return kChatToolViewHeight + FJ_TABBAR_SAFE_BOTTOM_MARGIN;
 }
 
 #pragma mark --- private method
@@ -41,15 +57,40 @@ static NSInteger const kChatMessageMaxLimit = 140;
     [self.textBgView addSubview:self.lineView];
     [self.textBgView addSubview:self.textView];
     [self.textBgView addSubview:self.switchBtn];
+    self.currentChatFootViewHeight = [FJChatToolView getChatToolViewHeight];
+    self.backgroundColor = [UIColor colorWithCustomType:AppColorTypeFontA];
 }
 
+// 添加 键盘 通知 监听
+- (void)addKeyboardNotiObserver {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboard:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboard:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+// 显示 时候 底部 聊天 框 高度
+- (CGFloat)chatMessageFootViewHeightWhenShow {
+    if(self.isShowFootView == NO) {
+        self.currentChatFootViewHeight = self.currentChatFootViewHeight - FJ_TABBAR_SAFE_BOTTOM_MARGIN;
+    }
+    self.showFootView = YES;
+    return self.currentChatFootViewHeight;
+}
+
+// 隐藏 时候 底部 聊天 高度
+- (CGFloat)chatMessageFootViewHeightWhenHidden {
+    if(self.isShowFootView == YES) {
+        self.currentChatFootViewHeight = self.currentChatFootViewHeight + FJ_TABBAR_SAFE_BOTTOM_MARGIN;
+    }
+    self.showFootView = NO;
+    return self.currentChatFootViewHeight;
+}
 
 // 布局
 - (void)layoutChatToolViewSubViews {
     
     [self.textBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.bottom.equalTo(self).offset(0);
+        make.height.mas_equalTo(kChatToolViewHeight);
         make.top.equalTo(self);
     }];
     
@@ -72,12 +113,6 @@ static NSInteger const kChatMessageMaxLimit = 140;
         make.right.equalTo(self.switchBtn.mas_left);
         make.bottom.equalTo(self.textBgView).offset(-8);
     }];
-}
-
-#pragma mark --- private method
-// 清空 数据
-- (void)clearTextView {
-    self.textView.text = @"";
 }
 
 #pragma mark --- custom delegate
@@ -120,17 +155,18 @@ static NSInteger const kChatMessageMaxLimit = 140;
         }
     });
     
-   
-    
     
     //适配高度
     
     if (self.textView.textLayout.rowCount <= 4 && self.textView.textLayout.rowCount >= 1) {
         
         CGFloat height = self.textView.textLayout.textBoundingSize.height + 20;
-        
+        self.currentChatFootViewHeight = height;
         [self mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@(height));
+            make.height.equalTo(@(self.currentChatFootViewHeight));
+        }];
+        [self.textBgView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@(self.currentChatFootViewHeight));
         }];
     }
     
@@ -155,7 +191,22 @@ shouldChangeTextInRange:(NSRange)range
     return YES;
 }
 
-
+#pragma mark --- noti method
+// 处理键盘frame改变通知
+- (void)handleKeyboard:(NSNotification *)aNotification {
+    // 显示
+    if([aNotification.name isEqualToString:UIKeyboardWillShowNotification]){
+        [self mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo([self chatMessageFootViewHeightWhenShow]);
+        }];
+    }
+    // 隐藏
+    else if([aNotification.name isEqualToString:UIKeyboardWillHideNotification]){
+        [self mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo([self chatMessageFootViewHeightWhenHidden]);
+        }];
+    }
+}
 
 
 #pragma mark --- response event
@@ -222,4 +273,8 @@ shouldChangeTextInRange:(NSRange)range
     return _textView;
 }
 
+#pragma mark --- dealloc method
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 @end

@@ -7,8 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3069A6D81FC8145B006E0CAD /* FJChatMessageStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3069A6D71FC8145B006E0CAD /* FJChatMessageStateView.m */; };
+		3069A6DB1FC817B7006E0CAD /* FJChatMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3069A6DA1FC817B7006E0CAD /* FJChatMessageCell.m */; };
+		3069A6DE1FC81C85006E0CAD /* FJChatMessageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3069A6DD1FC81C85006E0CAD /* FJChatMessageContentView.m */; };
+		3069A6E11FC81D25006E0CAD /* FJChatMessageTextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3069A6E01FC81D25006E0CAD /* FJChatMessageTextLabel.m */; };
 		30799D391FB53BE4004519B0 /* FJChatMessageViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 30D1E7B01FB2CD4A00FE6B4E /* FJChatMessageViewController.h */; };
 		30799D3A1FB53BE4004519B0 /* FJChatMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D1E7B11FB2CD4A00FE6B4E /* FJChatMessageViewController.m */; };
+		30799D3D1FB572B7004519B0 /* FJChatMessageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30799D3C1FB572B7004519B0 /* FJChatMessageViewModel.m */; };
+		30799D411FB579AB004519B0 /* FJChatMessageServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 30799D401FB579AB004519B0 /* FJChatMessageServer.m */; };
+		30A8FE141FB9980900764C6E /* FJChatMessageConfiguration.h in Sources */ = {isa = PBXBuildFile; fileRef = 30799D3E1FB573E9004519B0 /* FJChatMessageConfiguration.h */; };
+		30CD1E621FCC42ED0031F734 /* FJChatMessageContentView+MessageLayoutConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CD1E611FCC42ED0031F734 /* FJChatMessageContentView+MessageLayoutConfig.m */; };
 		30D1E7551FB2A0A100FE6B4E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D1E7541FB2A0A100FE6B4E /* AppDelegate.m */; };
 		30D1E75D1FB2A0A100FE6B4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30D1E75C1FB2A0A100FE6B4E /* Assets.xcassets */; };
 		30D1E7601FB2A0A100FE6B4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D1E75E1FB2A0A100FE6B4E /* LaunchScreen.storyboard */; };
@@ -126,6 +134,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3069A6D61FC8145B006E0CAD /* FJChatMessageStateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FJChatMessageStateView.h; sourceTree = "<group>"; };
+		3069A6D71FC8145B006E0CAD /* FJChatMessageStateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FJChatMessageStateView.m; sourceTree = "<group>"; };
+		3069A6D91FC817B7006E0CAD /* FJChatMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FJChatMessageCell.h; sourceTree = "<group>"; };
+		3069A6DA1FC817B7006E0CAD /* FJChatMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FJChatMessageCell.m; sourceTree = "<group>"; };
+		3069A6DC1FC81C85006E0CAD /* FJChatMessageContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FJChatMessageContentView.h; sourceTree = "<group>"; };
+		3069A6DD1FC81C85006E0CAD /* FJChatMessageContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FJChatMessageContentView.m; sourceTree = "<group>"; };
+		3069A6DF1FC81D25006E0CAD /* FJChatMessageTextLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FJChatMessageTextLabel.h; sourceTree = "<group>"; };
+		3069A6E01FC81D25006E0CAD /* FJChatMessageTextLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FJChatMessageTextLabel.m; sourceTree = "<group>"; };
+		30799D3B1FB572B7004519B0 /* FJChatMessageViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FJChatMessageViewModel.h; sourceTree = "<group>"; };
+		30799D3C1FB572B7004519B0 /* FJChatMessageViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FJChatMessageViewModel.m; sourceTree = "<group>"; };
+		30799D3E1FB573E9004519B0 /* FJChatMessageConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FJChatMessageConfiguration.h; sourceTree = "<group>"; };
+		30799D3F1FB579AB004519B0 /* FJChatMessageServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FJChatMessageServer.h; sourceTree = "<group>"; };
+		30799D401FB579AB004519B0 /* FJChatMessageServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FJChatMessageServer.m; sourceTree = "<group>"; };
+		30CD1E601FCC42ED0031F734 /* FJChatMessageContentView+MessageLayoutConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FJChatMessageContentView+MessageLayoutConfig.h"; sourceTree = "<group>"; };
+		30CD1E611FCC42ED0031F734 /* FJChatMessageContentView+MessageLayoutConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "FJChatMessageContentView+MessageLayoutConfig.m"; sourceTree = "<group>"; };
 		30D1E7501FB2A0A100FE6B4E /* FJChatMessageViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FJChatMessageViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D1E7531FB2A0A100FE6B4E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		30D1E7541FB2A0A100FE6B4E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -414,8 +437,13 @@
 			isa = PBXGroup;
 			children = (
 				30D1E7991FB2A9CA00FE6B4E /* FJChatMessageViewHeader.h */,
+				30799D3E1FB573E9004519B0 /* FJChatMessageConfiguration.h */,
 				30D1E8431FB3F76E00FE6B4E /* FJChatMessageModel.h */,
 				30D1E8441FB3F76E00FE6B4E /* FJChatMessageModel.m */,
+				30799D3B1FB572B7004519B0 /* FJChatMessageViewModel.h */,
+				30799D3C1FB572B7004519B0 /* FJChatMessageViewModel.m */,
+				30799D3F1FB579AB004519B0 /* FJChatMessageServer.h */,
+				30799D401FB579AB004519B0 /* FJChatMessageServer.m */,
 				30D1E85A1FB4063700FE6B4E /* FJChatMessageLayout.h */,
 				30D1E85B1FB4063700FE6B4E /* FJChatMessageLayout.m */,
 			);
@@ -515,6 +543,16 @@
 				30D1E83D1FB3E6F100FE6B4E /* FJChatSystemMessageCell.m */,
 				30D1E8631FB438D800FE6B4E /* FJChatSystemMessageCell+MessageLayoutConfig.h */,
 				30D1E8641FB438D800FE6B4E /* FJChatSystemMessageCell+MessageLayoutConfig.m */,
+				3069A6D61FC8145B006E0CAD /* FJChatMessageStateView.h */,
+				3069A6D71FC8145B006E0CAD /* FJChatMessageStateView.m */,
+				3069A6D91FC817B7006E0CAD /* FJChatMessageCell.h */,
+				3069A6DA1FC817B7006E0CAD /* FJChatMessageCell.m */,
+				3069A6DF1FC81D25006E0CAD /* FJChatMessageTextLabel.h */,
+				3069A6E01FC81D25006E0CAD /* FJChatMessageTextLabel.m */,
+				3069A6DC1FC81C85006E0CAD /* FJChatMessageContentView.h */,
+				3069A6DD1FC81C85006E0CAD /* FJChatMessageContentView.m */,
+				30CD1E601FCC42ED0031F734 /* FJChatMessageContentView+MessageLayoutConfig.h */,
+				30CD1E611FCC42ED0031F734 /* FJChatMessageContentView+MessageLayoutConfig.m */,
 			);
 			path = FJChatMessageCell;
 			sourceTree = "<group>";
@@ -809,9 +847,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30CD1E621FCC42ED0031F734 /* FJChatMessageContentView+MessageLayoutConfig.m in Sources */,
+				30A8FE141FB9980900764C6E /* FJChatMessageConfiguration.h in Sources */,
 				30799D391FB53BE4004519B0 /* FJChatMessageViewController.h in Sources */,
 				30799D3A1FB53BE4004519B0 /* FJChatMessageViewController.m in Sources */,
 				30D1E83E1FB3E6F100FE6B4E /* FJChatSystemMessageCell.m in Sources */,
+				3069A6DE1FC81C85006E0CAD /* FJChatMessageContentView.m in Sources */,
+				30799D3D1FB572B7004519B0 /* FJChatMessageViewModel.m in Sources */,
 				30D1E7BB1FB2D03400FE6B4E /* FJEmojiHelper.m in Sources */,
 				30D1E8621FB438C800FE6B4E /* FJOtherChatMessageCell+MessageLayoutConfig.m in Sources */,
 				30D1E7B91FB2D03400FE6B4E /* FJChatEmojiView.m in Sources */,
@@ -825,9 +867,13 @@
 				30D1E85C1FB4063700FE6B4E /* FJChatMessageLayout.m in Sources */,
 				30D1E8341FB3095800FE6B4E /* FJChatMessageViewController+GestureAction.m in Sources */,
 				30D1E8651FB438D800FE6B4E /* FJChatSystemMessageCell+MessageLayoutConfig.m in Sources */,
+				3069A6D81FC8145B006E0CAD /* FJChatMessageStateView.m in Sources */,
 				30D1E7921FB2A4AC00FE6B4E /* UIFont+APPFont.m in Sources */,
 				30D1E85F1FB438BA00FE6B4E /* FJOwerChatMessageCell+MessageLayoutConfig.m in Sources */,
 				30D1E7911FB2A4AC00FE6B4E /* UIColor+APPColor.m in Sources */,
+				3069A6E11FC81D25006E0CAD /* FJChatMessageTextLabel.m in Sources */,
+				30799D411FB579AB004519B0 /* FJChatMessageServer.m in Sources */,
+				3069A6DB1FC817B7006E0CAD /* FJChatMessageCell.m in Sources */,
 				30D1E7551FB2A0A100FE6B4E /* AppDelegate.m in Sources */,
 				30D1E86D1FB4535800FE6B4E /* NSString+Extention.m in Sources */,
 				30D1E8421FB3F42100FE6B4E /* UIImageView+CornerRadius.m in Sources */,

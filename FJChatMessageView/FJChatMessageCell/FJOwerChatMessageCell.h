@@ -7,21 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FJChatMessageCell.h"
 
 UIKIT_EXTERN NSString *const kFJOwerChatMessageCellId ;
 
 @class YYLabel;
 @class FJChatMessageLayout;
 
-@interface FJOwerChatMessageCell : UITableViewCell
-// 头像
-@property (nonatomic, strong) UIImageView *avatarImgView;
-// 内容
-@property (nonatomic, strong) YYLabel *contentLbl;
-// 背景图
-@property (nonatomic, strong) UIImageView *backgroundImgView;
-// 模型 布局
-@property (nonatomic, strong) FJChatMessageLayout *messageLayout;
+@interface FJOwerChatMessageCell : FJChatMessageCell
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 @end
