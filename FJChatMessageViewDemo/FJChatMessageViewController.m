@@ -44,7 +44,6 @@
 
 @implementation FJChatMessageViewController
 
-
 #pragma mark --------------- Init Methods
 
 - (instancetype)initWithChatSessionType:(FJChatMessageSessionType)chatSessionType {
@@ -55,25 +54,19 @@
 }
 #pragma mark --- life circle
 
+#pragma mark --- life circle
 - (void)dealloc {
+    NSLog(@"dealloc method");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _chatSessionType = FJChatMessageSessionTypeGroup;
     [self setupGestures];
     [self setupViewControls];
     [self setupNetworkRequest];
     [self addKeyboardNotiObserver];
     [self layoutViewControllerSubviews];
-    
-    __weak typeof(self) weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self.tableView reloadData];
-    });
 }
 
 
